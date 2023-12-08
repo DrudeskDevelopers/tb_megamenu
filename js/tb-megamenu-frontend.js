@@ -2,7 +2,7 @@
  * @file
  * Defines Javascript behaviors for MegaMenu frontend.
  */
-
+console.log('Defines Javascript behaviors for MegaMenu frontend');
 (function ($, Drupal, drupalSettings) {
   "use strict";
 
@@ -13,6 +13,7 @@
   Drupal.TBMegaMenu.supportedScreens = [980];
   Drupal.TBMegaMenu.focusableElements = 'a:not([disabled]), button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), details:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
   Drupal.TBMegaMenu.menuResponsive = function () {
+    console.log('menuResponsive');
     var windowWidth = window.innerWidth ? window.innerWidth : $(window).width();
     var navCollapse = $('.tb-megamenu').children('.nav-collapse');
     if (windowWidth < Drupal.TBMegaMenu.supportedScreens[0]) {
@@ -34,6 +35,7 @@
   };
 
   Drupal.TBMegaMenu.focusNextPrevElement = function (direction) {
+    console.log('focusNextPrevElement');
     // Add all the elements we want to include in our selection
     var $current = $(document.activeElement);
 
@@ -60,8 +62,9 @@
 
   Drupal.behaviors.tbMegaMenuAction = {
     attach: function (context, settings) {
+      console.log('tbMegaMenuAction');
 
-      $('.tb-megamenu', context).once('tb-megamenu').each(function () {
+      $(once('tb-megamenu', '.tb-megamenu', context)).each(function () {
 
         /* Keyboard Control Setup */
         // Semi-Global Variables
@@ -429,6 +432,7 @@
         });
 
         var isTouch = window.matchMedia('(pointer: coarse)').matches;
+        console.log('var isTouch ' . isTouch);
 
         if (!isTouch) {
           var mm_duration = 0;
@@ -547,12 +551,14 @@
 
           // Anytime there's a click outside the menu, close the menu.
           $(document).on('click', function (event) {
+            console.log('Anytime there\'s a click outside the menu, close the menu.')
             if ($(event.target).closest('.tb-megamenu-nav').length === 0) {
               nav_close_megamenu();
               $(".tb-megamenu").find(".tb-megamenu-clicked").removeClass("tb-megamenu-clicked");
             };
           })
         };
+        console.log('isTouch '.isTouch)
 
         if (isTouch) {
           createTouchMenu($(".tb-megamenu ul.nav li.mega", context).has(".dropdown-menu"));
